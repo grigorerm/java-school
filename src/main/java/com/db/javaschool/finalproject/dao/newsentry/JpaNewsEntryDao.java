@@ -7,27 +7,27 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import com.db.javaschool.finalproject.entity.Command;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.db.javaschool.finalproject.dao.JpaDao;
+import com.db.javaschool.finalproject.entity.NewsEntry;
 
-public class JpaNewsEntryDao extends JpaDao<Command, Long> implements NewsEntryDao {
+public class JpaNewsEntryDao extends JpaDao<NewsEntry, Long> implements NewsEntryDao {
 
 	public JpaNewsEntryDao() {
-		super(Command.class);
+		super(NewsEntry.class);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Command> findAll() {
+	public List<NewsEntry> findAll() {
 		final CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
-		final CriteriaQuery<Command> criteriaQuery = builder.createQuery(Command.class);
+		final CriteriaQuery<NewsEntry> criteriaQuery = builder.createQuery(NewsEntry.class);
 
-		Root<Command> root = criteriaQuery.from(Command.class);
+		Root<NewsEntry> root = criteriaQuery.from(NewsEntry.class);
 		criteriaQuery.orderBy(builder.desc(root.get("date")));
 
-		TypedQuery<Command> typedQuery = this.getEntityManager().createQuery(criteriaQuery);
+		TypedQuery<NewsEntry> typedQuery = this.getEntityManager().createQuery(criteriaQuery);
 		return typedQuery.getResultList();
 	}
 
