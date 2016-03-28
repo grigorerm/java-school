@@ -27,7 +27,7 @@ public class User implements Entity, UserDetails {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<String> roles = new HashSet<String>();
 
-	@OneToMany
+	
 	@Column(unique = true, length = 16)
 	private Long id_store;
 
