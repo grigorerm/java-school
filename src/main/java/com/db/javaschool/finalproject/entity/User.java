@@ -5,11 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,6 +26,11 @@ public class User implements Entity, UserDetails {
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<String> roles = new HashSet<String>();
+
+	@OneToMany
+	@Column(unique = true, length = 16)
+	private Long id_store;
+
 
 	protected User() {
 		/* Reflection instantiation */
