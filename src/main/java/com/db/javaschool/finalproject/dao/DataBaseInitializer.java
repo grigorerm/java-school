@@ -63,9 +63,9 @@ public class DataBaseInitializer {
 			
 			timestamp += 1000 * 60 * 60;
 		}
-		Product product = new Product("branza");
+		Product product = new Product("pc","asus",1200,5);
 		this.productDao.save(product);
-		product = new Product("salam");
+		product = new Product("mac","apple",4400,10);
 		this.productDao.save(product);
 	}
 

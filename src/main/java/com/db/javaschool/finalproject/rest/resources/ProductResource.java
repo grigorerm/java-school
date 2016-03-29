@@ -68,6 +68,8 @@ public class ProductResource {
 		if (product == null) {
 			throw new WebApplicationException(404);
 		}
+		System.out.println("$$$$$ProductResource$$$$$\n\n\n"+product+"\n\n\n");
+		
 		return product;
 	}
 

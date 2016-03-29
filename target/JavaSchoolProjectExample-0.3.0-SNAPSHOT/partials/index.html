@@ -6,9 +6,27 @@
 	<h3>Products</h3>
 </div>
 
+
+<div class="row">
 <div ng-repeat="product in products">
-	<hr />
-	<h4>{{product.name}}</h4>
+
+	<div class="col-sm-6 col-md-3">
+		<div class="thumbnail">
+			<div class="caption">
+				<h3>{{product.name}}</h3>
+
+				<p><select>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				</select>
+					<a href="#" class="btn btn-success" role="button">Add to cart</a></p>
+			</div>
+		</div>
+	</div>
+</div>
+
 </div>
 
 <div class="page-header">
