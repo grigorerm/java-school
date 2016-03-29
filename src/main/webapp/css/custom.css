@@ -1,5 +1,7 @@
 body {
-	padding-top: 60px;
+
+	padding-top: 200px;
+	margin: 0;
 }
 
 ng-hide {
@@ -20,3 +22,21 @@ ng-hide {
 	right: 0;
 	margin: auto;
 }
+.mountain{
+	background-image: url("./images/background.jpg");
+}
+
+.fullscreen {
+	height: 100%;
+	width: 100%;
+
+
+	/* Remove any browser-default margins. */
+	margin: 0;
+
+
+}
+.fullheight{
+	height :100px;
+}
+
