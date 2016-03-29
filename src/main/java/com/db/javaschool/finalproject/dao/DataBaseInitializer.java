@@ -65,7 +65,7 @@ public class DataBaseInitializer {
 		}
 		Product product = new Product("pc","asus",1200,5);
 		this.productDao.save(product);
-		product = new Product("mac","apple",4400,10);
+		product = new Product("pc","apple",4400,10);
 		this.productDao.save(product);
 	}
 

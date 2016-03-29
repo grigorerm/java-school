@@ -168,10 +168,11 @@ function LoginController($scope, $rootScope, $location, $cookieStore, UserServic
 };
 
 
+
 var services = angular.module('exampleApp.services', ['ngResource']);
 
 services.factory('UserService', function($resource) {
-	
+
 	return $resource('rest/user/:action', {},
 			{
 				authenticate: {
