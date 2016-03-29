@@ -46,13 +46,17 @@
 	<bean id="newsEntryDao" class="com.db.javaschool.finalproject.dao.newsentry.JpaNewsEntryDao">
 	</bean>
 	
+	<bean id="productDao" class="com.db.javaschool.finalproject.dao.newsentry.JpaProductDao">
+	</bean>
+	
 	<bean id="userDao" class="com.db.javaschool.finalproject.dao.user.JpaUserDao">
 	</bean>
 	
 	<bean id="dataBaseInitializer" class="com.db.javaschool.finalproject.dao.DataBaseInitializer" init-method="initDataBase">
 		<constructor-arg ref="userDao" />
-		<constructor-arg ref="newsEntryDao" />
 		<constructor-arg ref="passwordEncoder" />
+		<constructor-arg ref="newsEntryDao" />
+		<constructor-arg ref="productDao" />
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />

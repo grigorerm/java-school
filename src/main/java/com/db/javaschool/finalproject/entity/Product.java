@@ -1,24 +1,18 @@
 package com.db.javaschool.finalproject.entity;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @javax.persistence.Entity
 public class Product implements Entity {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue
     private Long id_product;
 
@@ -30,7 +24,7 @@ public class Product implements Entity {
     }
 
     public Product(String name) {
-        this.product_name = product_name;
+        this.product_name = name;
     }
 
     public Long getId() {
