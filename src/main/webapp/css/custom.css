@@ -1,12 +1,10 @@
-body {
-
-	padding-top: 200px;
-	margin: 0;
+body{
+	padding-top: 60px;
 }
-
 ng-hide {
 	display: none;
 }
+
 
 .loader {
 	font-size: 36px;
@@ -23,11 +21,16 @@ ng-hide {
 	margin: auto;
 }
 .mountain{
+	height: 100vh;
 	background-image: url("./images/background.jpg");
 }
 
 .fullscreen {
-	height: 100%;
+
+	padding-top: 10px;
+	position:absolute;
+	top:0; left:0;
+
 	width: 100%;
 
 
@@ -40,3 +43,15 @@ ng-hide {
 	height :100px;
 }
 
+.wrapper{
+
+	margin-top: 200px;
+
+}
+
+h2{
+/*text-align: center;*/
+	position: relative;
+	font-family: Verdana;
+	color:white;
+}
