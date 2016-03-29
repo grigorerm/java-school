@@ -1,3 +1,4 @@
+
 package com.db.javaschool.finalproject.dao;
 
 import java.util.Date;
@@ -63,10 +64,21 @@ public class DataBaseInitializer {
 			
 			timestamp += 1000 * 60 * 60;
 		}
-		Product product = new Product("pc","asus",1200,5);
+		Product product = new Product("Laptop i3","Asus",1200,5);
 		this.productDao.save(product);
-		product = new Product("pc","apple",4400,10);
+		product = new Product("Macbook Pro i5","Apple",4400,10);
 		this.productDao.save(product);
+		product = new Product("Tableta","Samsung",800,12);
+		this.productDao.save(product);
+		product = new Product("Telefon","LG",440,1);
+		this.productDao.save(product);
+		product = new Product("Telefon","Allview",250,0);
+		this.productDao.save(product);
+		product = new Product("Mouse optic","Hama",30,12);
+		this.productDao.save(product);
+		product = new Product("Laptop i5","Samsung",1800,1);
+		this.productDao.save(product);
+	
 	}
 
 }

@@ -115,7 +115,18 @@ function IndexController($scope, NewsService, ProductsService) {
 	
 	$scope.newsEntries = NewsService.query();
 	$scope.products = ProductsService.query();
+
+	/*
+	 * Vream sa punem noua valoare a cantitatii in baza de data
+	$scope.product = new ProductService();
 	
+	$scope.updateQuantity = function(){
+		$scope.product.$save(function(){
+			$location.path('/');
+		});
+		
+	};
+	*/
 	$scope.deleteEntry = function(newsEntry) {
 		newsEntry.$remove(function() {
 			$scope.newsEntries = NewsService.query();
