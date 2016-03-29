@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 @javax.persistence.Entity
 public class User implements Entity, UserDetails {
 
-	//test
 	@Id
 	@GeneratedValue
 	private Long id;
