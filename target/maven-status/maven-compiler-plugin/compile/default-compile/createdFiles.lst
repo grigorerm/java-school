@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-com/db/javaschool/finalproject/entity/Supplier.class
-com/db/javaschool/finalproject/entity/Suppliers.class
-com/db/javaschool/finalproject/entity/Store.class
-com/db/javaschool/finalproject/entity/Command.class
-com/db/javaschool/finalproject/entity/RowCommand.class
-com/db/javaschool/finalproject/entity/Product.class
-=======
 com\db\javaschool\finalproject\entity\Supplier.class
 com\db\javaschool\finalproject\entity\Command.class
 com\db\javaschool\finalproject\entity\User.class
@@ -32,4 +24,3 @@ com\db\javaschool\finalproject\dao\Dao.class
 com\db\javaschool\finalproject\rest\resources\UserResource.class
 com\db\javaschool\finalproject\rest\TokenUtils.class
 com\db\javaschool\finalproject\JsonViews$User.class
->>>>>>> origin/master

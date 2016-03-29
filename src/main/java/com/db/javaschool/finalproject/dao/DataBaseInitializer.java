@@ -2,13 +2,10 @@ package com.db.javaschool.finalproject.dao;
 
 import java.util.Date;
 
-<<<<<<< HEAD
 import com.db.javaschool.finalproject.entity.NewsEntry;
-=======
 import com.db.javaschool.finalproject.entity.Command;
 import com.db.javaschool.finalproject.entity.NewsEntry;
 
->>>>>>> origin/master
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.db.javaschool.finalproject.dao.newsentry.NewsEntryDao;
@@ -50,20 +47,18 @@ public class DataBaseInitializer {
 		this.userDao.save(adminUser);
 
 		long timestamp = System.currentTimeMillis() - 1000 * 60 * 60 * 24;
-<<<<<<< HEAD
 		for (int i = 0; i < 10; i++) {
 			NewsEntry newsEntry = new NewsEntry();
 			newsEntry.setContent("This is example content " + i);
 			newsEntry.setDate(new Date(timestamp));
 			this.newsEntryDao.save(newsEntry);
-=======
-
+		}
 		for (int i = 0; i < 3; i++) {
 			NewsEntry newEntry = new NewsEntry();
 			newEntry.setContent("Text " + i);
 			newEntry.setDate(new Date(timestamp));
 			this.newsEntryDao.save(newEntry);
->>>>>>> origin/master
+			
 			timestamp += 1000 * 60 * 60;
 		}
 	}

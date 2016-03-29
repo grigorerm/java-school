@@ -148,7 +148,7 @@ function CreateController($scope, $location, NewsService) {
 
 
 function LoginController($scope, $rootScope, $location, $cookieStore, UserService) {
-	
+	$scope.isHomePage = true;
 	$scope.rememberMe = false;
 	
 	$scope.login = function() {
