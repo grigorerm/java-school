@@ -21,7 +21,7 @@ ng-hide {
 	margin: auto;
 }
 .mountain{
-	height: 100vh;
+	height: 150vh;
 	background-image: url("./images/background.jpg");
 }
 
@@ -45,7 +45,7 @@ ng-hide {
 
 .wrapper{
 
-	margin-top: 200px;
+	margin-top: 300px;
 
 }
 
@@ -54,4 +54,44 @@ h2{
 	position: relative;
 	font-family: Verdana;
 	color:white;
+}
+
+
+.button {
+	border-radius: 4px;
+	background-color: cornflowerblue;
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 18px;
+	padding: 15px;
+	width:150px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 5px;
+}
+
+.button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.button span:after {
+	content: '>>';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -10px;
+	transition: 0.5s;
+}
+
+.button:hover span {
+	padding-right: 25px;
+}
+
+.button:hover span:after {
+	opacity: 1;
+	right: 0;
 }
