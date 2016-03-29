@@ -5,7 +5,7 @@
 	<h3>News</h3>
 </div>
 
-<div ng-repeat="newsEntry in newsEntries">
+<div ng-repeat="newsEntry in newCommand">
 	<hr />
 	<div class="pull-right">
 		<a href="" ng-click="deleteEntry(newsEntry)" class="btn btn-xs btn-default" ng-show="hasRole('admin')" title="delete"><span class="fa fa-trash-o"></span></a>
@@ -14,4 +14,8 @@
 	<h4>{{newsEntry.date | date}}</h4>
 	<p>{{newsEntry.content}}</p>
 </div>
+<div class="page-header">
+	<h3>Products</h3>
+</div>
+
 <hr />

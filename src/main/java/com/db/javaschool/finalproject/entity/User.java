@@ -28,10 +28,18 @@ public class User implements Entity, UserDetails {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<String> roles = new HashSet<String>();
 
-	
+	/*
+	@ManyToOne
+	@JoinColumn(name="STORE_ID")
 	@Column(unique = true, length = 16)
-	private Long id_store;
+	private Store store;
+	
+	//@OneToMany
+	//@JoinColumn(name="USER_ID")
+	@Column(unique = true, length = 16)
+	private Command command;
 
+*/
 
 	protected User() {
 		/* Reflection instantiation */

@@ -3,6 +3,9 @@ package com.db.javaschool.finalproject.entity;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import java.util.*;
 
 @javax.persistence.Entity
@@ -15,8 +18,9 @@ public class Command implements Entity {
     @Column(nullable = false)
     private Date date_delivery;
 
+    //@ManyToOne(mappedby="command")
     @Column(length = 16, nullable = false)
-    private long id_user;
+    private User user;
 
     @Column(length = 16, nullable = false)
     private long index_row_command;
@@ -26,9 +30,9 @@ public class Command implements Entity {
 
     }
 
-    public Command(Date date, long id_user, long id_command) {
+    public Command(Date date, User user, long id_command) {
         this.date_delivery = date;
-        this.id_user = id_user;
+        this.user = user;
         this.id_command = id_command;
     }
 
@@ -46,14 +50,6 @@ public class Command implements Entity {
 
     public void setDate_delivery(Date date_delivery) {
         this.date_delivery = date_delivery;
-    }
-
-    public long getId_user() {
-        return id_user;
-    }
-
-    public void setId_user(long id_user) {
-        this.id_user = id_user;
     }
 
     public long getIndex_row_command() {

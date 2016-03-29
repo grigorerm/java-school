@@ -1,19 +1,12 @@
 package com.db.javaschool.finalproject.entity;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.*;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import antlr.collections.List;
 
 @javax.persistence.Entity
 public class Store implements Entity {
@@ -29,7 +22,9 @@ public class Store implements Entity {
     @Column(unique = true, length = 16, nullable = false)
     private String address;
 
-
+    //@OneToMany( mappedBy="store")
+    private ArrayList<User> users;
+    
     protected Store() {
 		/* Reflection instantiation */
     }

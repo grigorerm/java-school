@@ -28,7 +28,12 @@ import org.springframework.stereotype.Component;
 
 import com.db.javaschool.finalproject.JsonViews;
 import com.db.javaschool.finalproject.dao.newsentry.NewsEntryDao;
+<<<<<<< HEAD
 import  com.db.javaschool.finalproject.entity.NewsEntry;
+=======
+import com.db.javaschool.finalproject.entity.NewsEntry;
+import com.db.javaschool.finalproject.entity.NewsEntry;
+>>>>>>> origin/master
 
 @Component
 @Path("/news")
