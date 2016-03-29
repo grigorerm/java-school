@@ -9,7 +9,9 @@ com\db\javaschool\finalproject\entity\NewsEntry.class
 com\db\javaschool\finalproject\transfer\UserTransfer.class
 com\db\javaschool\finalproject\dao\DataBaseInitializer.class
 com\db\javaschool\finalproject\dao\newsentry\NewsEntryDao.class
+com\db\javaschool\finalproject\dao\newsentry\ProductDao.class
 com\db\javaschool\finalproject\JsonViews$Admin.class
+com\db\javaschool\finalproject\dao\newsentry\JpaProductDao.class
 com\db\javaschool\finalproject\entity\RowCommand.class
 com\db\javaschool\finalproject\dao\user\UserDao.class
 com\db\javaschool\finalproject\entity\Product.class
@@ -24,3 +26,4 @@ com\db\javaschool\finalproject\dao\Dao.class
 com\db\javaschool\finalproject\rest\resources\UserResource.class
 com\db\javaschool\finalproject\rest\TokenUtils.class
 com\db\javaschool\finalproject\JsonViews$User.class
+com\db\javaschool\finalproject\rest\resources\ProductResource.class

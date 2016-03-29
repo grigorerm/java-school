@@ -111,9 +111,10 @@ angular.module('exampleApp', ['ngRoute', 'ngCookies', 'exampleApp.services'])
 	});
 
 
-function IndexController($scope, NewsService) {
+function IndexController($scope, NewsService, ProductsService) {
 	
 	$scope.newsEntries = NewsService.query();
+	$scope.products = ProductsService.query();
 	
 	$scope.deleteEntry = function(newsEntry) {
 		newsEntry.$remove(function() {
@@ -185,4 +186,9 @@ services.factory('UserService', function($resource) {
 services.factory('NewsService', function($resource) {
 	
 	return $resource('rest/news/:id', {id: '@id'});
+});
+
+services.factory('ProductsService', function($resource) {
+	
+	return $resource('rest/products/:id_product', {id_product: '@id_product'});
 });
