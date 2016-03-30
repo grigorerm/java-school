@@ -15,6 +15,43 @@
 	<!-- >a href="#!/create" class="btn btn-default" ng-show="hasRole('admin')" title="Create"><span class="fa fa-plus"></span></a-->
 </div>
 
+
+<input type="range" id="myRange" onclick="setQ(myRange.value)">
+
+<button onclick="print()">Print</button>
+
+
+<script>
+function myF(val) {
+
+    alert(val);
+    
+
+}
+</script>
+
+<!-- 
+
+<input type="range" id="myRanges" onclick="myFunction(myRanges.value)">
+
+<button onclick="print()">Print</button>
+
+
+<script>
+var x = 42;
+function myFunction(r) {
+     alert(r);
+     x  = r;
+}
+function print(){
+  alert(x)
+}
+</script>
+
+
+
+</script>
+ -->
 <div class="page-header">
 	<h3>Products</h3>
 </div>
@@ -29,12 +66,21 @@
 				<h3>{{product.name}}</h3>
 				<h4>{{product.supplier_name}}</h4>
 				<h4>{{product.price}} RON</h4>
-				<form action="index.html"
+				<form action="index.html" id="myVal"
 					  oninput="currentQuantity.value=parseInt(quantity.value)"
 					  onchange="totalPrice.value=parseInt(quantity.value)*parseInt(price.value)">
-					<input type="range" size="15" id="quantity" name="quantity" value="0" max={{product.quantity}}
+					<input type="range" size="15" id="{{product.id}}" name="quantity" value="0" max={{product.quantity}}
+						ng-click="setQ(product.id)"
+						
 						style="position:relative; align: center; width:200px; height:20px; border:1px solid #cccccc;">
 					<input type="number" name="price" id="price" value={{product.price}} hidden="true">
+					
+					<script>
+						function print(x){
+							alert(x);
+						}
+					</script>
+					
 
 					<h5 style="display:inline-block">Quantity: </h5>
 					<h5 style="display:inline-block"><output name="currentQuantity" for="quantity">0</output></h5>
@@ -44,8 +90,10 @@
 					<h5 style="display:inline-block"><output name="totalPrice" for="quantity price">0</output></h5>
 					<h5 style="display:inline-block"> RON</h5>
 
+
+					<!-- ng-click="initCurrentQuantity(this.value)" -->
 					<div style="text-align: center;">
-						<a href="#" class="btn btn-success" ng-click="addItem(product.name,product.supplier_name,product.price,this.currentQuantity)" role="button">Add to cart</a>
+						<a href="#" class="btn btn-success" ng-click="addItem(product.name,product.supplier_name,product.price,currentQuantity)" role="button">Add to cart</a>
 					</div>
 				</form>
 
@@ -61,9 +109,6 @@
 
 <div>
 
-	<h5>Your cart: </h5>
-	<h5>{{product.name}}</h5>
-	<h5>{{total()}} </h5>
 
 
 
@@ -77,6 +122,9 @@
 <div class="page-header">
 	<h3>Summarize</h3>
 </div>
+	<h4>Your cart: </h4>
+	<h5>{{product.name}}</h5>
+	<h5>{{total()}} </h5>
 
 <!--<div>-->
 
