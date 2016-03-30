@@ -19,9 +19,7 @@
 	<h3>Products</h3>
 </div>
 
-
 <div class="row">
-
 
 <div ng-repeat="product in products">
 
@@ -32,34 +30,49 @@
 				<h4>{{product.supplier_name}}</h4>
 				<h4>{{product.price}} RON</h4>
 				<form action="index.html"
-					  oninput="x.value=parseInt(quantity.value)*parseInt(price.value)">
-					<p><input type="range" size="15" id="quantity" name="quantity" value="1" max={{product.quantity}}>{{product.quantity}}</p> 
-					
+					  oninput="y.value=parseInt(quantity.value)"
+					  onchange="x.value=parseInt(quantity.value)*parseInt(price.value)">
+					<input type="range" size="15" id="quantity" name="quantity" value="0" max={{product.quantity}} 
+						style="position:relative; align: center; width:200px; height:20px; border:1px solid #cccccc;">
 					<input type="number" name="price" id="price" value={{product.price}} hidden="true">
-					<p>Number of pieces:<output name="price"></output></p>
-					<p>Total price: <output name="x" for="quantity price"></output></p>
-					<br><br>
+
+					<h5 style="display:inline-block">Quantity: </h5>
+					<h5 style="display:inline-block"><output name="y" for="quantity">0</output></h5>
+					<h5 style="display:inline-block">/{{product.quantity}}</h5>
+					<br></br>
+					<h5 style="display:inline-block">Total price: </h5>
+					<h5 style="display:inline-block"><output name="x" for="quantity price">0</output></h5>
+					<h5 style="display:inline-block"> RON</h5>
+					
 				</form>
 
-
-				<!--<p><select class="dropdown">-->
-					<!--<option value="1">1</option>-->
-					<!--<option value="2">2</option>-->
-					<!--<option value="3">3</option>-->
-					<!--<option value="4">4</option>-->
-					<!--<option value="5">5</option>-->
-					<!--<option value="2">6</option>-->
-					<!--<option value="3">7</option>-->
-					<!--<option value="4">8</option>-->
-					<!--<option value="3">9</option>-->
-					<!--<option value="4">10</option>-->
-
-				<!--</select></div>-->
-					<a href="#" class="btn btn-success" role="button">Add to cart</a></p>
-
+			</div>
+			
+			<div style="text-align: center;">
+				<a href="#" class="btn btn-success" ng-click="updateQuantity()" role="button">Add to cart</a>
+			</div>
+	
 			</div>
 		</div>
 	</div>
+</div>
+
+
+<div class="page-header">
+	<h3>Summarize</h3>
+</div>
+<div>
+
+	<h5>Your cart: </h5>
+	<h5>3 x Laptop i5 Asus = 3600 RON </h5>
+	<h5>2 x Telefon Samsung = 1600 RON</h5>
+	<h4>Total: 5200 RON</h4>
+	
+	<div style="text-align: center;">
+		<a href="#" class="btn btn-success" role="button">Place order</a>
+	</div>
+
+
 </div>
 
 <!-- >div class="page-header">
