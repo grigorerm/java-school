@@ -117,14 +117,15 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 	$scope.products = ProductsService.query();
 
 	
-	var currentQuantity = 7;
+	var currentQuantity = 0;
 	
 	$scope.setQ = function(index){
-		alert(index);
-		var x = document.getElementById(index);
-		currentQuantity = x.value;
-		alert(currentQuantity);
+		//alert(index);
+		var aux = document.getElementById(index);
+		currentQuantity = aux.value;
+		//alert(currentQuantity);
 	};
+	
 	/*
 	 * Vream sa punem noua valoare a cantitatii in baza de data
 	$scope.product = new ProductService();
@@ -151,31 +152,58 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 			quantity: 0
 		}]
 	};
-
+	
+	var cart = [];
+	$scope.cart = [
+	               {name: 		""},
+	               {supplier:	""},
+	               {price:		0 },
+	               {quantity:	0 }];  
+	
 	$scope.addItem = function (name , supplier , price , quantity) {
-		alert(currentQuantity);
+		//alert(currentQuantity);
 		$scope.invoice.items.push({
 			name: name,
 			supplier: supplier,
 			price: price,
 			quantity: currentQuantity
 		});
+		//document.getElementById("demo").innerHTML = name;
+		
+		 
+		//cart.controller('IndexController', function ($scope) {
+		$scope.cart.push(
+	               {name: 		name},
+	               {supplier:	supplier},
+	               {price:		price},
+	               {quantity:	currentQuantity}); 
+		  
+		  /*  {
+		      'name' : 'Some Guy',
+		      'text' : 'This is cool.'
+		    });
+		  */
+		 
+		//});
+
 	};
 
 	$scope.removeItem = function (index) {
 		$scope.invoice.items.splice(index, 1);
 	};
-
-	$scope.total = function() {
+	
+	$scope.total = function(id) {
 		var totalprice = 0;
-		var resutl = "";
+		var result = "";
 		angular.forEach($scope.invoice.items, function(item) {
-			totalprice = "" + item.quantity + " " + item.price;
-			
-			resutl += item.name + " " + item.supplier + " "+totalprice + '\n';
+			if (item.id == id){
+				totalprice = currentQuantity * item.price;
+				result = currentQuantity + " x " + item.name + " " + item.supplier + " .... " + totalprice + '\n';
+				cart[cart.length] = result;
+			}
 		})
-
-		return resutl;
+		document.getElementById("demo").innerHTML = result;
+		//return cart.toString();
 	};
 };
 
