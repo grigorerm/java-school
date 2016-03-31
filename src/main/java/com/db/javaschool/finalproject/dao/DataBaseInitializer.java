@@ -40,16 +40,16 @@ public class DataBaseInitializer {
 
 	public void initDataBase() {
 
-		User userUser = new User("user", this.passwordEncoder.encode("user"));
+		User userUser = new User("user", this.passwordEncoder.encode("user"),"user@user.ro","lidl","str. plopilor nr.10");
 		userUser.addRole("user");
 		this.userDao.save(userUser);
 
-		User userMarius = new User("marius", this.passwordEncoder.encode("1234"));
+		User userMarius = new User("marius", this.passwordEncoder.encode("1234"),"marius@admin.ro","carrefour","str. pipera nr.15");
 		userMarius.addRole("user");
 		userMarius.addRole("admin");
 		this.userDao.save(userMarius);
 
-		User adminUser = new User("admin", this.passwordEncoder.encode("admin"));
+		User adminUser = new User("admin", this.passwordEncoder.encode("admin"),"admin@user.ro","profi","str. kaimatei nr.10");
 		adminUser.addRole("user");
 		adminUser.addRole("admin");
 		this.userDao.save(adminUser);

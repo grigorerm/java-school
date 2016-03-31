@@ -25,7 +25,7 @@ angular.module('exampleApp', ['ngRoute', 'ngCookies', 'exampleApp.services'])
 
             $routeProvider.when('/history', {
                 templateUrl: 'partials/history.html',
-                controller: IndexController
+                controller: RaportController
             });
 
 
@@ -121,15 +121,17 @@ angular.module('exampleApp', ['ngRoute', 'ngCookies', 'exampleApp.services'])
 });
 
 var cart = [];
-function IndexController($scope, $cookieStore, NewsService, ProductsService) {
+function IndexController($scope, $cookieStore, $http, NewsService, ProductsService) {
 	
 	$scope.newsEntries = NewsService.query();
 	$scope.products = ProductsService.query();
 
-	
+
 	var currentQuantity = 0;
 	var setQuantity = false;
 	var quantityBadge = 0;
+    var idCommand = 0;
+
 	$scope.setQ = function(index){
 		var aux = document.getElementById(index);
 		currentQuantity = aux.value;
@@ -149,6 +151,9 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 		
 	};
 	*/
+
+
+
 	$scope.deleteEntry = function(newsEntry) {
 		newsEntry.$remove(function() {
 			$scope.newsEntries = NewsService.query();
@@ -158,6 +163,7 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 
 	$scope.invoice = {
 		items: [{
+
 			name: '',
 			supplier: '',
 			price: 0,
@@ -166,17 +172,18 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 	};
 	
 	$scope.cart = [{
+        id : 0,
 		name : "",
 		supplier : "",
 		price: 0,
 		quantity: 0,
-        badge: 0 
+
 	}];
     $scope.input={
         badge : 0
     }
 	
-	$scope.addItem = function (name , supplier , price , quantity) {
+	$scope.addItem = function (id, name , supplier , price , quantity) {
 		if (setQuantity == true){
 			$scope.invoice.items.push({
 				name: name,
@@ -188,11 +195,12 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
             quantityBadge += parseInt(currentQuantity) ;
 	
 			$scope.cart.push({
+               id: id,
 	           name: 	name,
 	           supplier: supplier,
 	           price: currentQuantity * price,
 	           quantity:	currentQuantity,
-               badge : quantityBadge
+
 
 	        });
             $scope.input= {
@@ -204,13 +212,55 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 	};
 
 
-    var dateDelivery
-    $scope.delivery = function () {
-        dateDelivery = document.getElementById("deliveryDate").value;
+
+    $scope.myFunction = function () {
+
+            alert("Your order has been placed and will be delivered on " + document.getElementById("deliveryDate").value);
+            // Put cookie
+
+            //$cookieStore.put('content',$scope.cart);
+            // var contents;
+            // $scope.contents = $cookieStore.get('content');
+            // //$scope.contents.concat($scope.cart);
+            // for (var i=0; i<$scope.cart.length; i++){
+            //     if ($scope.cart[i].quantity != 0) {
+            //         $scope.contents.push($scope.cart[i]);
+            //     }
+            // }
+            // alert($scope.contents);
+            // $cookieStore.put('content', $scope.contents);
+            var config = {
+                headers : {
+                    'Content-Type': 'application/json'
+                }
+            }
+
+
+
+            for (var i=0; i<$scope.cart.length; i++){
+                if ($scope.cart[i].quantity != 0) {
+                    var data = {
+                            "supplier_name": $scope.cart[i].supplier,
+                            "price":$scope.invoice.items[i].price,
+                            "quantity":$scope.invoice.items[i].quantity,
+                            "name":$scope.cart[i].name,
+                            "id":$scope.cart[i].id
+                    }
+                    var url = "http://localhost:8080/rest/products/" + $scope.cart[i].id;
+                    $scope.stiri = $http.post(url, data, config).then(function (response){
+                        $scope.ceva = response.data;
+                    });
+                }
+            };
+            $scope.ceva = $http.get(url).then(function (response)
+                {
+                    $scope.ceva = response.data;
+
+            });
+
+            location.reload();
 
     }
-
-
 
 	$scope.removeItem = function (index) {
 		$scope.invoice.items.splice(index, 1);
@@ -218,17 +268,12 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 	
 }
 
-function myFunction() {
+function RaportController($scope, $routeParams, $cookieStore, $location, UserService) {
 
-    alert("Your order has been placed and will be delivered on " + document.getElementById("deliveryDate").value);
-    // Put cookie
-    $cookieStore.put('cart','oatmeal');
-    // Get cookie
-    //var favoriteCookie = $cookieStore.get('myFavorite');
-    // Removing a cookie
-    //$cookieStore.remove('myFavorite');
-
-    location.reload();
+    var contents;
+    $scope.contents = $cookieStore.get('content');
+    //alert($scope.contents);
+    
 
 }
 
@@ -256,25 +301,6 @@ function CreateController($scope, $location, NewsService) {
         });
     };
 };
-
-
-
-
-
-// var controller = angular.module('exampleApp.controllers', []).
-//
-// controller('MyCtrl1', ['$scope', function($scope, UserService) {
-//     $scope.formInfo = {};
-//     $scope.saveData = function() {
-//         console.log("am trimis")
-//         UserService.create($.param({
-//             username: $scope.username,
-//             password: $scope.password,
-//
-//         }));
-//
-//     };
-// }]);
 
 
 function LoginController($scope, $rootScope, $location, $cookieStore, UserService) {

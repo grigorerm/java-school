@@ -25,6 +25,39 @@ public class User implements Entity, UserDetails {
 	@Column(length = 80, nullable = false)
 	private String password;
 
+	@Column(length = 80, nullable = false)
+	private String email;
+
+	@Column(length = 80, nullable = false)
+	private String store;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getStore() {
+		return store;
+	}
+
+	public void setStore(String store) {
+		this.store = store;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	@Column(length = 80, nullable = false)
+	private String address;
+
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<String> roles = new HashSet<String>();
 
@@ -45,9 +78,13 @@ public class User implements Entity, UserDetails {
 		/* Reflection instantiation */
 	}
 
-	public User(String name, String passwordHash) {
+
+	public User(String name, String password, String email, String store, String address) {
 		this.name = name;
-		this.password = passwordHash;
+		this.password = password;
+		this.email = email;
+		this.store = store;
+		this.address = address;
 	}
 
 	public Long getId() {
