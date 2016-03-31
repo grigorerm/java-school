@@ -1,5 +1,6 @@
 body{
 	padding-top: 60px;
+
 }
 ng-hide {
 	display: none;
@@ -46,7 +47,7 @@ ng-hide {
 }
 
 .wrapper{
-
+	margin-left: 40%;
 	margin-top: 300px;
 
 }
@@ -54,7 +55,7 @@ ng-hide {
 h2{
 /*text-align: center;*/
 	position: relative;
-	font-family: Verdana;
+	font-family: Palatino,sans-serif;
 	color:white;
 }
 
@@ -97,3 +98,58 @@ h2{
 	opacity: 1;
 	right: 0;
 }
+
+
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000;
+}
+/* flip the pane when hovered */
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+	transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+	width: 320px;
+	height: 480px;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+}
+
+.goToHistory{
+	margin-left: 300px;
+
+}
+/*.frontBackground{*/
+	/*background-color: lightgray;*/
+/*}*/
+
+/*AICI chestii SHMEK*/
+
