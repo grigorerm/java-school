@@ -1,4 +1,4 @@
-<div class="pull-right">
+<!-- <div class="pull-right">
 	<div class="alert alert-success" role="alert" id="success-alert">Welcome Back {{user.name}} !</div>
 	<script type="text/javascript">
 	
@@ -12,7 +12,7 @@
 	
 		});
 	</script>
-</div>
+</div> -->
 
 <div class="page-header">
 	<h3>Products</h3>
@@ -49,7 +49,10 @@
 
 					<!-- ng-click="initCurrentQuantity(this.value)" -->
 					<div style="text-align: center;">
-						<a href="#" class="btn btn-success"  ng-click="addItem(product.name,product.supplier_name,product.price,this.currentQuantity)" role="button"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
+						<a href="#" class="btn btn-success" 
+							ng-click="disableButton();addItem(product.name,product.supplier_name,product.price,this.product.quantity)"
+							role="button"
+						 	><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
 					</div>
 				</form>
 
@@ -69,14 +72,13 @@
 </div>
 	<h3>Your cart: </h3>
 	
-	<p id="cart"></p>
-
-    <li ng-repeat="item in cart" ng-if="item.quantity != '0'">
-      	<h5 style="display:inline-block">{{item.quantity}} x {{item.name}} {{item.supplier}} = {{item.price}}RON</h5>
+	<li ng-repeat="it in cart" ng-if="it.quantity != '0'">
+      	<h5 style="display:inline-block">{{it.quantity}} x {{it.name}} {{it.supplier}}</h5>
+      	<h5 style="display:inline-block " align="right"> {{it.price}}RON</h5>
     </li>
 	
 	
 	<div style="text-align: center;">
-		<a href="#" class="btn btn-success" role="button">Place order</a>
+		<a href="#" class="btn btn-success" role="button"  ng-disabled="isDisabled" ng-click="disableButton()">Place order</a>
 	</div>
 <hr />

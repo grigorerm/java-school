@@ -25,24 +25,9 @@ public class Product implements Entity {
     @Column(nullable = false)
     private double price;
 
-    public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
 	@Column(nullable = false)
     private int quantity;
+
 
 	protected Product() {
 		/* Reflection instantiation */
@@ -77,5 +62,22 @@ public class Product implements Entity {
 	public void setSupplier_name(String supplier_name) {
 		this.supplier_name = supplier_name;
 	}
+	
+    public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 
 }

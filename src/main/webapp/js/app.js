@@ -34,7 +34,6 @@ angular.module('exampleApp', ['ngRoute', 'ngCookies', 'exampleApp.services'])
                 controller: IndexController
             });
 
-           // $locationProvider.hashPrefix('!');
 
             /* Register error provider that shows message on failed requests or redirects to login page on
              * unauthenticated requests */
@@ -120,7 +119,7 @@ angular.module('exampleApp', ['ngRoute', 'ngCookies', 'exampleApp.services'])
     $rootScope.initialized = true;
 });
 
-
+var cart = [];
 function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 	
 	$scope.newsEntries = NewsService.query();
@@ -128,14 +127,16 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 
 	
 	var currentQuantity = 0;
+	var setQuantity = false;
 	
 	$scope.setQ = function(index){
-		//alert(index);
 		var aux = document.getElementById(index);
 		currentQuantity = aux.value;
-		//alert(currentQuantity);
+		setQuantity = true;
 	};
-	
+	$scope.disableButton = function() {
+        $scope.isDisabled = true;
+    }
 	/*
 	 * Vream sa punem noua valoare a cantitatii in baza de data
 	$scope.product = new ProductService();
@@ -163,58 +164,37 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 		}]
 	};
 	
-	var cart = [];
-	$scope.cart = [
-	               {name: 		""},
-	               {supplier:	""},
-	               {price:		0 },
-	               {quantity:	0 }];  
+	$scope.cart = [{
+		name : "",
+		supplier : "",
+		price: 0,
+		quantity: 0
+	}];
 	
 	$scope.addItem = function (name , supplier , price , quantity) {
-		//alert(currentQuantity);
-		$scope.invoice.items.push({
-			name: name,
-			supplier: supplier,
-			price: price,
-			quantity: currentQuantity
-		});
-		//document.getElementById("demo").innerHTML = name;
-		
-		 
-		//cart.controller('IndexController', function ($scope) {
-		$scope.cart.push(
-	               {name: 		name},
-	               {supplier:	supplier},
-	               {price:		price},
-	               {quantity:	currentQuantity}); 
-		  
-		  /*  {
-		      'name' : 'Some Guy',
-		      'text' : 'This is cool.'
-		    });
-		  */
-		 
-		//});
-
+		if (setQuantity == true){
+			$scope.invoice.items.push({
+				name: name,
+				supplier: supplier,
+				price: price,
+				quantity: (quantity - currentQuantity)
+			});
+			
+	
+			$scope.cart.push({
+	           name: 	name,
+	           supplier: supplier,
+	           price: currentQuantity * price,
+	           quantity:	currentQuantity
+	        }); 
+		}
+		setQuantity = false;
 	};
 
 	$scope.removeItem = function (index) {
 		$scope.invoice.items.splice(index, 1);
 	};
 	
-	$scope.total = function(id) {
-		var totalprice = 0;
-		var result = "";
-		angular.forEach($scope.invoice.items, function(item) {
-			if (item.id == id){
-				totalprice = currentQuantity * item.price;
-				result = currentQuantity + " x " + item.name + " " + item.supplier + " .... " + totalprice + '\n';
-				cart[cart.length] = result;
-			}
-		})
-		document.getElementById("demo").innerHTML = result;
-		//return cart.toString();
-	};
 }
 
 
@@ -281,7 +261,6 @@ function registerController($scope, $location) {
     }
 
 }
-
 
 var services = angular.module('exampleApp.services', ['ngResource']);
 
