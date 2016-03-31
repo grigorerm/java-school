@@ -14,18 +14,6 @@
 	</script>
 </div>
 
-
-<input type="range" id="myRange" onclick="setQ(myRange.value)">
-
-<button onclick="print()">Print</button>
-
-
-<script>
-function myF(val) {
-    alert(val);
-}
-</script>
-
 <div class="page-header">
 	<h3>Products</h3>
 </div>
@@ -61,11 +49,7 @@ function myF(val) {
 
 					<!-- ng-click="initCurrentQuantity(this.value)" -->
 					<div style="text-align: center;">
-<<<<<<< HEAD
-						<a href="#" class="btn btn-success" ng-click="addItem(product.name,product.supplier_name,product.price,0)" role="button">Add to cart</a>
-=======
 						<a href="#" class="btn btn-success"  ng-click="addItem(product.name,product.supplier_name,product.price,this.currentQuantity)" role="button"><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
->>>>>>> origin/master
 					</div>
 				</form>
 
@@ -87,7 +71,7 @@ function myF(val) {
 	
 	<p id="cart"></p>
 
-    <li ng-repeat="item in cart " ng-if="item.quantity != '0'">
+    <li ng-repeat="item in cart" ng-if="item.quantity != '0'">
       	<h5 style="display:inline-block">{{item.quantity}} x {{item.name}} {{item.supplier}} = {{item.price}}RON</h5>
     </li>
 	

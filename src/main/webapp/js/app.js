@@ -121,7 +121,6 @@ angular.module('exampleApp', ['ngRoute', 'ngCookies', 'exampleApp.services'])
 });
 
 
-<<<<<<< HEAD
 function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 	
 	$scope.newsEntries = NewsService.query();
@@ -216,64 +215,7 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 		document.getElementById("demo").innerHTML = result;
 		//return cart.toString();
 	};
-=======
-function IndexController($scope, NewsService, ProductsService) {
-
-    $scope.newsEntries = NewsService.query();
-    $scope.products = ProductsService.query();
-
-    /*
-     * Vream sa punem noua valoare a cantitatii in baza de data
-     $scope.product = new ProductService();
-
-     $scope.updateQuantity = function(){
-     $scope.product.$save(function(){
-     $location.path('/');
-     });
-
-     };
-     */
-    $scope.deleteEntry = function (newsEntry) {
-        newsEntry.$remove(function () {
-            $scope.newsEntries = NewsService.query();
-        });
-    };
-
-
-    $scope.invoice = {
-        items: [{
-            name: '',
-            supplier: '',
-            price: 0,
-            quantity: 0
-        }]
-    };
-
-    $scope.addItem = function (name, supplier, price, quantity) {
-        $scope.invoice.items.push({
-            name: name,
-            supplier: supplier,
-            price: price,
-            quantity: quantity
-        });
-    };
-
-    $scope.removeItem = function (index) {
-        $scope.invoice.items.splice(index, 1);
-    };
-
-    $scope.total = function () {
-        var totalprice = 0;
-        var resutl = "";
-        angular.forEach($scope.invoice.items, function (item) {
-            totalprice = item.quantity * item.price;
-            resutl += item.name + " " + item.supplier + " " + totalprice + "\\n";
-        });
-
-        return resutl;
-    };
->>>>>>> origin/master
-};
+}
 
 
 function EditController($scope, $routeParams, $location, NewsService) {
