@@ -120,10 +120,11 @@ angular.module('exampleApp', ['ngRoute', 'ngCookies', 'exampleApp.services'])
 });
 
 var cart = [];
-function IndexController($scope, $cookieStore, $http, NewsService, ProductsService) {
+function IndexController($scope, UserService, $cookieStore, $http, NewsService, ProductsService, $rootScope) {
 
     $scope.newsEntries = NewsService.query();
     $scope.products = ProductsService.query();
+    //$scope.currentUser = UserService.query();
 
 
     var currentQuantity = 0;
@@ -198,7 +199,7 @@ function IndexController($scope, $cookieStore, $http, NewsService, ProductsServi
     };
 
 
-    $scope.myFunction = function () {
+    $scope.myFunction = function (currentUserName) {
 
         var delivaryDate = document.getElementById("deliveryDate").value;
         alert("Your order has been placed and will be delivered on " + delivaryDate);
@@ -226,19 +227,15 @@ function IndexController($scope, $cookieStore, $http, NewsService, ProductsServi
                 var orderInfo = "has ordered " + $scope.invoice.items[i].quantity
                     + " x " + $scope.cart[i].name + " " + $scope.cart[i].supplier +
                     " for a total of " + $scope.cart[i].price + " with delivary date " + document.getElementById("deliveryDate").value;
-
+                var name = "" + currentUserName;
                 data = {
-                    "user": "marius",
+                    "user": name,
                     "date_delivery": "delivaryDate",
                     "orderInfo": orderInfo,
                     "store": "lidl",
                     "address": "str. pipera"
                 }
-                var data2 = {
-                    "user": "object:31",
-                    "address": "Asus",
-                    "orderInfo": "1200.0", "date_delivery": "Laptop i3", "store": "1"
-                };
+
                 var url = "http://localhost:8080/rest/history/";
                 $scope.stiri = $http.post(url, data, config).then(function (response) {
                     $scope.ceva = response.data;
