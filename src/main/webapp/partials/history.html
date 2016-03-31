@@ -1,8 +1,13 @@
-<h3>Your cart: </h3>
+<div class="fullscreen">
+    <div class="raportback">
+<div class="well" style="font-family: Verdana" margin>
+    <h3>Reports: </h3>
 
-<li ng-repeat="order in orders" >
+    <li ng-repeat="order in orders" ng-if="order.id != 1">
+        <div>
+        <h4 style="display:inline-block">{{order.user}} {{order.orderInfo}} </h4>
+        </div>
 
-    <h5 style="display:inline-block">{{order.name}} $$ {{order.orderInfo}} {{order.store}} {{order.address}}</h5>
-
-</li>
-
+    </li>
+</div>
+</div></div>

@@ -230,16 +230,16 @@ function IndexController($scope, $cookieStore, $http, NewsService, ProductsServi
                         + " x " + $scope.cart[i].name + " " + $scope.cart[i].supplier +
                             " for a total of " + $scope.cart[i].price + "with delivary date " + delivaryDate;
                     data = {
-                        "id": $scope.cart[i].id,
-                        "user": $scope.username,
+                        "user": "marius",
                         "date_delivery": delivaryDate,
                         "orderInfo": orderInfo,
-                        "store": $scope.store,
-                        "address": $scope.address
+                        "store": "lidl",
+                        "address": "str. pipera"
                     }
-                    var url = "http://localhost:8080/rest/history/" + $scope.cart[i].id;
+                    var url = "http://localhost:8080/rest/history/";
                     $scope.stiri = $http.post(url, data, config).then(function (response){
                         $scope.ceva = response.data;
+                        alert(response.data);
                     });
 
 
@@ -261,12 +261,13 @@ function IndexController($scope, $cookieStore, $http, NewsService, ProductsServi
 
 function RaportController($scope, $http, $routeParams, $cookieStore, $location, UserService) {
 
-    var contents;
+    var orders;
     //$scope.contents = $cookieStore.get('content');
     //alert($scope.contents);
     var url = "http://localhost:8080/rest/history/";
     $scope.stiri = $http.get(url).then(function (response){
-        $scope.contents  = response.data;
+        $scope.orders  = response.data;
+        alert(response.data);
     });
 
 }

@@ -29,7 +29,6 @@ angular.module('exampleApp', ['ngRoute', 'ngCookies', 'exampleApp.services'])
             });
 
 
-
             $routeProvider.otherwise({
                 templateUrl: 'partials/index.html',
                 controller: IndexController
@@ -122,141 +121,142 @@ angular.module('exampleApp', ['ngRoute', 'ngCookies', 'exampleApp.services'])
 
 var cart = [];
 function IndexController($scope, $cookieStore, $http, NewsService, ProductsService) {
-	
-	$scope.newsEntries = NewsService.query();
-	$scope.products = ProductsService.query();
+
+    $scope.newsEntries = NewsService.query();
+    $scope.products = ProductsService.query();
 
 
-	var currentQuantity = 0;
-	var setQuantity = false;
-	var quantityBadge = 0;
+    var currentQuantity = 0;
+    var setQuantity = false;
+    var quantityBadge = 0;
     var idCommand = 0;
 
-	$scope.setQ = function(index){
-		var aux = document.getElementById(index);
-		currentQuantity = aux.value;
-		setQuantity = true;
-	};
-	$scope.disableButton = function() {
+    $scope.setQ = function (index) {
+        var aux = document.getElementById(index);
+        currentQuantity = aux.value;
+        setQuantity = true;
+    };
+    $scope.disableButton = function () {
         $scope.isDisabled = true;
     }
 
-	$scope.deleteEntry = function(newsEntry) {
-		newsEntry.$remove(function() {
-			$scope.newsEntries = NewsService.query();
-		});
-	};
+    $scope.deleteEntry = function (newsEntry) {
+        newsEntry.$remove(function () {
+            $scope.newsEntries = NewsService.query();
+        });
+    };
 
 
-	$scope.invoice = {
-		items: [{
+    $scope.invoice = {
+        items: [{
 
-			name: '',
-			supplier: '',
-			price: 0,
-			quantity: 0
-		}]
-	};
-	
-	$scope.cart = [{
-        id : 0,
-		name : "",
-		supplier : "",
-		price: 0,
-		quantity: 0,
+            name: '',
+            supplier: '',
+            price: 0,
+            quantity: 0
+        }]
+    };
 
-	}];
-    $scope.input={
-        badge : 0
+    $scope.cart = [{
+        id: 0,
+        name: "",
+        supplier: "",
+        price: 0,
+        quantity: 0,
+
+    }];
+    $scope.input = {
+        badge: 0
     }
-	
-	$scope.addItem = function (id, name , supplier , price , quantity) {
-		if (setQuantity == true){
-			$scope.invoice.items.push({
-				name: name,
-				supplier: supplier,
-				price: price,
-				quantity: (quantity - currentQuantity)
-			});
 
-            quantityBadge += parseInt(currentQuantity) ;
-	
-			$scope.cart.push({
-               id: id,
-	           name: 	name,
-	           supplier: supplier,
-	           price: currentQuantity * price,
-	           quantity:	currentQuantity,
+    $scope.addItem = function (id, name, supplier, price, quantity) {
+        if (setQuantity == true) {
+            $scope.invoice.items.push({
+                name: name,
+                supplier: supplier,
+                price: price,
+                quantity: (quantity - currentQuantity)
+            });
+
+            quantityBadge += parseInt(currentQuantity);
+
+            $scope.cart.push({
+                id: id,
+                name: name,
+                supplier: supplier,
+                price: currentQuantity * price,
+                quantity: currentQuantity,
 
 
-	        });
-            $scope.input= {
-                badge:quantityBadge
+            });
+            $scope.input = {
+                badge: quantityBadge
             }
-		}
-       
-		setQuantity = false;
-	};
+        }
 
+        setQuantity = false;
+    };
 
 
     $scope.myFunction = function () {
 
-            var delivaryDate = document.getElementById("deliveryDate").value;
-            alert("Your order has been placed and will be delivered on " + delivaryDate);
+        var delivaryDate = document.getElementById("deliveryDate").value;
+        alert("Your order has been placed and will be delivered on " + delivaryDate);
 
-            var config = {
-                headers : {
-                    'Content-Type': 'application/json'
-                }
+        var config = {
+            headers: {
+                'Content-Type': 'application/json'
             }
+        }
 
-            // update in products
-            for (var i=0; i<$scope.cart.length; i++){
-                if ($scope.cart[i].quantity != 0) {
-                    var data = {
-                            "supplier_name": $scope.cart[i].supplier,
-                            "price":$scope.invoice.items[i].price,
-                            "quantity":$scope.invoice.items[i].quantity,
-                            "name":$scope.cart[i].name,
-                            "id":$scope.cart[i].id
-                    }
-                    var url = "http://localhost:8080/rest/products/" + $scope.cart[i].id;
-                    $scope.stiri = $http.post(url, data, config).then(function (response){
-                        $scope.ceva = response.data;
-                    });
-                    //  a comandat <orderInfo> in valoare de <valoere>
-                    var orderInfo = "has ordered " + $scope.invoice.items[i].quantity
-                        + " x " + $scope.cart[i].name + " " + $scope.cart[i].supplier +
-                            " for a total of " + $scope.cart[i].price + "with delivary date " + delivaryDate;
-                    data = {
-                        "user": "marius",
-                        "date_delivery": delivaryDate,
-                        "orderInfo": orderInfo,
-                        "store": "lidl",
-                        "address": "str. pipera"
-                    }
-                    var url = "http://localhost:8080/rest/history/";
-                    $scope.stiri = $http.post(url, data, config).then(function (response){
-                        $scope.ceva = response.data;
-                        alert(response.data);
-                    });
-
-
+        // update in products
+        for (var i = 0; i < $scope.cart.length; i++) {
+            if ($scope.cart[i].quantity != 0) {
+                var data = {
+                    "supplier_name": $scope.cart[i].supplier,
+                    "price": $scope.invoice.items[i].price,
+                    "quantity": $scope.invoice.items[i].quantity,
+                    "name": $scope.cart[i].name,
+                    "id": $scope.cart[i].id
                 }
-            };
+                var url = "http://localhost:8080/rest/products/" + $scope.cart[i].id;
+                $scope.stiri = $http.post(url, data, config).then(function (response) {
+                    $scope.ceva = response.data;
+                });
+                var orderInfo = "has ordered " + $scope.invoice.items[i].quantity
+                    + " x " + $scope.cart[i].name + " " + $scope.cart[i].supplier +
+                    " for a total of " + $scope.cart[i].price + " with delivary date " + document.getElementById("deliveryDate").value;
+
+                data = {
+                    "user": "marius",
+                    "date_delivery": "delivaryDate",
+                    "orderInfo": orderInfo,
+                    "store": "lidl",
+                    "address": "str. pipera"
+                }
+                var data2 = {
+                    "user": "object:31",
+                    "address": "Asus",
+                    "orderInfo": "1200.0", "date_delivery": "Laptop i3", "store": "1"
+                };
+                var url = "http://localhost:8080/rest/history/";
+                $scope.stiri = $http.post(url, data, config).then(function (response) {
+                    $scope.ceva = response.data;
+
+                });
+            }
+        }
+        ;
 
 
-
-
-            location.reload();
+        location.reload();
 
     }
 
-	$scope.removeItem = function (index) {
-		$scope.invoice.items.splice(index, 1);
-	};
-	
+    $scope.removeItem = function (index) {
+        $scope.invoice.items.splice(index, 1);
+    };
+
 }
 
 function RaportController($scope, $http, $routeParams, $cookieStore, $location, UserService) {
@@ -265,9 +265,9 @@ function RaportController($scope, $http, $routeParams, $cookieStore, $location, 
     //$scope.contents = $cookieStore.get('content');
     //alert($scope.contents);
     var url = "http://localhost:8080/rest/history/";
-    $scope.stiri = $http.get(url).then(function (response){
-        $scope.orders  = response.data;
-        alert(response.data);
+    $scope.stiri = $http.get(url).then(function (response) {
+        $scope.orders = response.data;
+
     });
 
 }
@@ -282,8 +282,6 @@ function EditController($scope, $routeParams, $location, NewsService) {
         });
     };
 };
-
-
 
 
 function CreateController($scope, $location, NewsService) {
@@ -328,7 +326,6 @@ function frontController($scope, $location) {
         $location.path('/register');
     };
 }
-
 
 
 var services = angular.module('exampleApp.services', ['ngResource']);

@@ -31,7 +31,7 @@ public class History implements Entity {
     @Column(length = 16 )
     private String address;
 
-    @Column(length = 16)
+    @Column()
     private String orderInfo;
 
     public History() {
