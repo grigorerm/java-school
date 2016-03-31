@@ -46,7 +46,6 @@ ng-hide {
 }
 
 .wrapper{
-
 	margin-top: 300px;
 
 }
@@ -54,7 +53,6 @@ ng-hide {
 h2{
 /*text-align: center;*/
 	position: relative;
-	font-family: Verdana;
 	color:white;
 }
 
@@ -96,4 +94,3 @@ h2{
 .button:hover span:after {
 	opacity: 1;
 	right: 0;
-}

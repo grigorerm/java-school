@@ -1,5 +1,6 @@
 body{
 	padding-top: 60px;
+
 }
 ng-hide {
 	display: none;
@@ -46,7 +47,7 @@ ng-hide {
 }
 
 .wrapper{
-
+	margin-left: 40%;
 	margin-top: 300px;
 
 }
@@ -54,7 +55,7 @@ ng-hide {
 h2{
 /*text-align: center;*/
 	position: relative;
-	font-family: Verdana;
+	font-family: Palatino,sans-serif;
 	color:white;
 }
 

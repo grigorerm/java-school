@@ -16,6 +16,12 @@ angular.module('exampleApp', ['ngRoute', 'ngCookies', 'exampleApp.services'])
 				templateUrl: 'partials/login.html',
 				controller: LoginController
 			});
+
+			$routeProvider.when('/front', {
+				templateUrl: 'partials/front.html',
+				controller: frontController
+			});
+
 			
 			$routeProvider.otherwise({
 				templateUrl: 'partials/index.html',
@@ -132,6 +138,40 @@ function IndexController($scope, NewsService, ProductsService) {
 			$scope.newsEntries = NewsService.query();
 		});
 	};
+
+
+	$scope.invoice = {
+		items: [{
+			name: '',
+			supplier: '',
+			price: 0,
+			quantity: 0
+		}]
+	};
+
+	$scope.addItem = function (name , supplier , price , quantity) {
+		$scope.invoice.items.push({
+			name: name,
+			supplier: supplier,
+			price: price,
+			quantity: quantity
+		});
+	};
+
+		$scope.removeItem = function (index) {
+			$scope.invoice.items.splice(index, 1);
+		};
+
+		$scope.total = function() {
+			var totalprice = 0;
+			var resutl = "";
+			angular.forEach($scope.invoice.items, function(item) {
+				totalprice =item.quantity * item.price;
+				resutl += item.name + " " + item.supplier + " "+totalprice + "\\n";
+			})
+
+			return resutl;
+		};
 };
 
 
@@ -172,11 +212,15 @@ function LoginController($scope, $rootScope, $location, $cookieStore, UserServic
 			}
 			UserService.get(function(user) {
 				$rootScope.user = user;
-				$location.path("/");
+				$location.path("/front");
 			});
 		});
 	};
 };
+
+function frontRedirect(){
+	$location.path("/")
+}
 
 
 
