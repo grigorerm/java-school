@@ -1,4 +1,4 @@
-<div class="pull-right">
+<!-- <div class="pull-right">
 	<div class="alert alert-success" role="alert" id="success-alert">Welcome Back {{user.name}} !</div>
 	<script type="text/javascript">
 	
@@ -12,8 +12,9 @@
 	
 		});
 	</script>
-	<!-- >a href="#!/create" class="btn btn-default" ng-show="hasRole('admin')" title="Create"><span class="fa fa-plus"></span></a-->
-</div>
+</div> -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 
 <div class="page-header">
 	<h3>Products</h3>
@@ -29,12 +30,15 @@
 				<h3>{{product.name}}</h3>
 				<h4>{{product.supplier_name}}</h4>
 				<h4>{{product.price}} RON</h4>
-				<form action="index.html"
+				<form action="index.html" id="myVal"
 					  oninput="currentQuantity.value=parseInt(quantity.value)"
 					  onchange="totalPrice.value=parseInt(quantity.value)*parseInt(price.value)">
-					<input type="range" size="15" id="quantity" name="quantity" value="0" max={{product.quantity}}
+					<input type="range" size="15" id="{{product.id}}" name="quantity" value="0" max={{product.quantity}}
+						ng-click="setQ(product.id)"
+						
 						style="position:relative; align: center; width:200px; height:20px; border:1px solid #cccccc;">
 					<input type="number" name="price" id="price" value={{product.price}} hidden="true">
+					
 
 					<h5 style="display:inline-block">Quantity: </h5>
 					<h5 style="display:inline-block"><output name="currentQuantity" for="quantity">0</output></h5>
@@ -44,15 +48,17 @@
 					<h5 style="display:inline-block"><output name="totalPrice" for="quantity price">0</output></h5>
 					<h5 style="display:inline-block"> RON</h5>
 
+
+					<!-- ng-click="initCurrentQuantity(this.value)" -->
 					<div style="text-align: center;">
-						<a href="#" class="btn btn-success" ng-click="addItem(product.name,product.supplier_name,product.price,this.currentQuantity)" role="button">Add to cart</a>
+						<a href="#" class="btn btn-success" 
+							ng-click="disableButton();addItem(product.name,product.supplier_name,product.price,this.product.quantity)"
+							role="button"
+						 	><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
 					</div>
 				</form>
 
 			</div>
-
-
-
 			</div>
 		</div>
 	</div>
@@ -61,52 +67,42 @@
 
 <div>
 
-	<h5>Your cart: </h5>
-	<h5>{{product.name}}</h5>
-	<h5>{{total()}} </h5>
-
-
-
-	<div style="text-align: center;">
-		<a href="#" class="btn btn-success" role="button">Place order</a>
-	</div>
-
-
 </div>
 
 <div class="page-header">
 	<h3>Summarize</h3>
 </div>
-
-<!--<div>-->
-
-	<!--<h5>Your cart: </h5>-->
-	<!--<h5>{{product.name}} x Asus i5 Asus = 3600 RON </h5>-->
-	<!--<h5>{{product.name}} x Telefon Samsung = 1600 RON</h5>-->
-	<!--<h4>Total: 5200 RON</h4>-->
-
-	<!--<div style="text-align: center;">-->
-		<!--<a href="#" class="btn btn-success" role="button">Place order</a>-->
-	<!--</div>-->
-
-
-<!--</div>-->
-
-
-
-<!-- >div class="page-header">
-	<h3>News</h3>
-</div>
-
-<div ng-repeat="newsEntry in newsEntries">
-	<hr />
-	<div class="pull-right">
-		<a href="" ng-click="deleteEntry(newsEntry)" class="btn btn-xs btn-default" ng-show="hasRole('admin')" title="delete"><span class="fa fa-trash-o"></span></a>
-		<a href="#!/edit/{{newsEntry.id}}" class="btn btn-xs btn-default" ng-show="hasRole('admin')" title="edit"><span class="fa fa-pencil"></span></a>
+	<h3>Your cart: </h3>
+	
+	<li ng-repeat="it in cart" ng-if="it.quantity != '0'">
+      	<h5 style="display:inline-block">{{it.quantity}} x {{it.name}} {{it.supplier}}</h5>
+      	<h5 style="display:inline-block " align="right"> {{it.price}}RON</h5>
+    </li>
+	
+	
+	<div style="text-align: center;">
+		<a href="#" class="btn btn-success" role="button"  ng-disabled="isDisabled" ng-click="disableButton()">Place order</a>
 	</div>
-	<h4>{{newsEntry.date | date}}</h4>
-	<p>{{newsEntry.content}}</p>
-</div-->
 
+
+
+<div id="header">
+	<h2><br/>Select a Destination</h2>
+</div>
+<div class="left">
+	<p>Departing: <input type="text" id="departing"></p>
+</div>
+<div class="right">
+	<p>Returning: <input type="text" id="returning"></p>
+</div><br/>
+<div id="main">
+	<p>Destination: <select id="dropdown">
+		<option value="newyork">New York</option>
+		<option value="london">London</option>
+		<option value="beijing">Beijing</option>
+		<option value="moscow">Moscow</option>
+	</select></p>
+	<button>Submit</button>
+</div>
 
 <hr />

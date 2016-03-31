@@ -14,13 +14,38 @@
 	</script>
 </div> -->
 
+<script>
+	$('.myLinkToTop').click(function () {
+		$('html, body').animate({scrollTop:$(document).height()}, 'slow');
+		return false;
+	});
+</script>
+
+
 <div class="page-header">
+	<script>
+		$('.goBot').click(function () {
+			$('html, body').animate({scrollTop:$(document).height()}, 'slow');
+			return false;
+		});
+	</script>
+
+
 	<h3>Products</h3>
+	<ul style="text-align: right;" class="nav nav-pills" role="tablist">
+	<div class="goBot">
+		<button class="btn btn-info" role="button">
+		<span class="glyphicon glyphicon-shopping-cart, myLinkToTop"></span>
+		Your cart
+		<span class="badge" ng-model="input.badge"> {{input.badge}}</span>
+	</button></div>
+		</ul>
 </div>
+
 
 <div class="row">
 
-<div ng-repeat="product in products" ng-if="product.quantity != '0'">
+<div ng-repeat="product in products" ng-if="product.quantity != '0'" >
 
 	<div class="col-sm-6 col-md-3">
 		<div class="thumbnail">
@@ -49,9 +74,9 @@
 
 					<!-- ng-click="initCurrentQuantity(this.value)" -->
 					<div style="text-align: center;">
-						<a href="#" class="btn btn-success" 
+						<a class="btn btn-success"
 							ng-click="disableButton();addItem(product.name,product.supplier_name,product.price,this.product.quantity)"
-							role="button"
+						    role="button"
 						 	><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart</a>
 					</div>
 				</form>
@@ -70,15 +95,20 @@
 <div class="page-header">
 	<h3>Summarize</h3>
 </div>
+
 	<h3>Your cart: </h3>
 	
 	<li ng-repeat="it in cart" ng-if="it.quantity != '0'">
       	<h5 style="display:inline-block">{{it.quantity}} x {{it.name}} {{it.supplier}}</h5>
       	<h5 style="display:inline-block " align="right"> {{it.price}}RON</h5>
     </li>
-	
-	
+
+
 	<div style="text-align: center;">
-		<a href="#" class="btn btn-success" role="button"  ng-disabled="isDisabled" ng-click="disableButton()">Place order</a>
+		<h4>Delivery date:</h4>
+		<input id="deliveryDate" type="date"><br><br>
+		<a ng-click="delivery()" class="btn btn-success" role="button" onclick="myFunction()">Place order</a>
 	</div>
+
+
 <hr />

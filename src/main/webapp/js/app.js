@@ -23,11 +23,12 @@ angular.module('exampleApp', ['ngRoute', 'ngCookies', 'exampleApp.services'])
 
             });
 
-            $routeProvider.when('/register', {
-                templateUrl: 'partials/register.html',
-                controller: registerController
-
+            $routeProvider.when('/history', {
+                templateUrl: 'partials/history.html',
+                controller: IndexController
             });
+
+
 
             $routeProvider.otherwise({
                 templateUrl: 'partials/index.html',
@@ -128,7 +129,7 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 	
 	var currentQuantity = 0;
 	var setQuantity = false;
-	
+	var quantityBadge = 0;
 	$scope.setQ = function(index){
 		var aux = document.getElementById(index);
 		currentQuantity = aux.value;
@@ -168,8 +169,12 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 		name : "",
 		supplier : "",
 		price: 0,
-		quantity: 0
+		quantity: 0,
+        badge: 0 
 	}];
+    $scope.input={
+        badge : 0
+    }
 	
 	$scope.addItem = function (name , supplier , price , quantity) {
 		if (setQuantity == true){
@@ -179,17 +184,33 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 				price: price,
 				quantity: (quantity - currentQuantity)
 			});
-			
+
+            quantityBadge += parseInt(currentQuantity) ;
 	
 			$scope.cart.push({
 	           name: 	name,
 	           supplier: supplier,
 	           price: currentQuantity * price,
-	           quantity:	currentQuantity
-	        }); 
+	           quantity:	currentQuantity,
+               badge : quantityBadge
+
+	        });
+            $scope.input= {
+                badge:quantityBadge
+            }
 		}
+       
 		setQuantity = false;
 	};
+
+
+    var dateDelivery
+    $scope.delivery = function () {
+        dateDelivery = document.getElementById("deliveryDate").value;
+
+    }
+
+
 
 	$scope.removeItem = function (index) {
 		$scope.invoice.items.splice(index, 1);
@@ -197,6 +218,19 @@ function IndexController($scope, $cookieStore, NewsService, ProductsService) {
 	
 }
 
+function myFunction() {
+
+    alert("Your order has been placed and will be delivered on " + document.getElementById("deliveryDate").value);
+    // Put cookie
+    $cookieStore.put('cart','oatmeal');
+    // Get cookie
+    //var favoriteCookie = $cookieStore.get('myFavorite');
+    // Removing a cookie
+    //$cookieStore.remove('myFavorite');
+
+    location.reload();
+
+}
 
 function EditController($scope, $routeParams, $location, NewsService) {
 
@@ -210,6 +244,8 @@ function EditController($scope, $routeParams, $location, NewsService) {
 };
 
 
+
+
 function CreateController($scope, $location, NewsService) {
 
     $scope.newsEntry = new NewsService();
@@ -220,6 +256,25 @@ function CreateController($scope, $location, NewsService) {
         });
     };
 };
+
+
+
+
+
+// var controller = angular.module('exampleApp.controllers', []).
+//
+// controller('MyCtrl1', ['$scope', function($scope, UserService) {
+//     $scope.formInfo = {};
+//     $scope.saveData = function() {
+//         console.log("am trimis")
+//         UserService.create($.param({
+//             username: $scope.username,
+//             password: $scope.password,
+//
+//         }));
+//
+//     };
+// }]);
 
 
 function LoginController($scope, $rootScope, $location, $cookieStore, UserService) {
@@ -254,13 +309,6 @@ function frontController($scope, $location) {
 }
 
 
-function registerController($scope, $location) {
-
-    $scope.goRegister = function () {
-        $location.path('/register');
-    }
-
-}
 
 var services = angular.module('exampleApp.services', ['ngResource']);
 
@@ -272,7 +320,13 @@ services.factory('UserService', function ($resource) {
                 method: 'POST',
                 params: {'action': 'authenticate'},
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            },
+            create: {
+                method: 'POST',
+                params: {'action': 'create'},
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }
+
         }
     );
 });
