@@ -48,7 +48,10 @@
 	
 	<bean id="productDao" class="com.db.javaschool.finalproject.dao.newsentry.JpaProductDao">
 	</bean>
-	
+
+	<bean id="historyDao" class="com.db.javaschool.finalproject.dao.newsentry.JpaHistoryDao">
+	</bean>
+
 	<bean id="userDao" class="com.db.javaschool.finalproject.dao.user.JpaUserDao">
 	</bean>
 	
@@ -57,6 +60,7 @@
 		<constructor-arg ref="passwordEncoder" />
 		<constructor-arg ref="newsEntryDao" />
 		<constructor-arg ref="productDao" />
+		<constructor-arg ref="historyDao" />
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />

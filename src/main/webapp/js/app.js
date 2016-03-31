@@ -140,19 +140,6 @@ function IndexController($scope, $cookieStore, $http, NewsService, ProductsServi
 	$scope.disableButton = function() {
         $scope.isDisabled = true;
     }
-	/*
-	 * Vream sa punem noua valoare a cantitatii in baza de data
-	$scope.product = new ProductService();
-	
-	$scope.updateQuantity = function(){
-		$scope.product.$save(function(){
-			$location.path('/');
-		});
-		
-	};
-	*/
-
-
 
 	$scope.deleteEntry = function(newsEntry) {
 		newsEntry.$remove(function() {
@@ -215,28 +202,16 @@ function IndexController($scope, $cookieStore, $http, NewsService, ProductsServi
 
     $scope.myFunction = function () {
 
-            alert("Your order has been placed and will be delivered on " + document.getElementById("deliveryDate").value);
-            // Put cookie
+            var delivaryDate = document.getElementById("deliveryDate").value;
+            alert("Your order has been placed and will be delivered on " + delivaryDate);
 
-            //$cookieStore.put('content',$scope.cart);
-            // var contents;
-            // $scope.contents = $cookieStore.get('content');
-            // //$scope.contents.concat($scope.cart);
-            // for (var i=0; i<$scope.cart.length; i++){
-            //     if ($scope.cart[i].quantity != 0) {
-            //         $scope.contents.push($scope.cart[i]);
-            //     }
-            // }
-            // alert($scope.contents);
-            // $cookieStore.put('content', $scope.contents);
             var config = {
                 headers : {
                     'Content-Type': 'application/json'
                 }
             }
 
-
-
+            // update in products
             for (var i=0; i<$scope.cart.length; i++){
                 if ($scope.cart[i].quantity != 0) {
                     var data = {
@@ -250,13 +225,29 @@ function IndexController($scope, $cookieStore, $http, NewsService, ProductsServi
                     $scope.stiri = $http.post(url, data, config).then(function (response){
                         $scope.ceva = response.data;
                     });
+                    //  a comandat <orderInfo> in valoare de <valoere>
+                    var orderInfo = "has ordered " + $scope.invoice.items[i].quantity
+                        + " x " + $scope.cart[i].name + " " + $scope.cart[i].supplier +
+                            " for a total of " + $scope.cart[i].price + "with delivary date " + delivaryDate;
+                    data = {
+                        "user": "marius",
+                        "date_delivery": delivaryDate,
+                        "orderInfo": orderInfo,
+                        "store": "lidl",
+                        "address": "str. pipera"
+                    }
+                    var url = "http://localhost:8080/rest/history/";
+                    $scope.stiri = $http.post(url, data, config).then(function (response){
+                        $scope.ceva = response.data;
+                        alert(response.data);
+                    });
+
+
                 }
             };
-            $scope.ceva = $http.get(url).then(function (response)
-                {
-                    $scope.ceva = response.data;
 
-            });
+
+
 
             location.reload();
 
@@ -268,12 +259,16 @@ function IndexController($scope, $cookieStore, $http, NewsService, ProductsServi
 	
 }
 
-function RaportController($scope, $routeParams, $cookieStore, $location, UserService) {
+function RaportController($scope, $http, $routeParams, $cookieStore, $location, UserService) {
 
-    var contents;
-    $scope.contents = $cookieStore.get('content');
+    var orders;
+    //$scope.contents = $cookieStore.get('content');
     //alert($scope.contents);
-    
+    var url = "http://localhost:8080/rest/history/";
+    $scope.stiri = $http.get(url).then(function (response){
+        $scope.orders  = response.data;
+        alert(response.data);
+    });
 
 }
 

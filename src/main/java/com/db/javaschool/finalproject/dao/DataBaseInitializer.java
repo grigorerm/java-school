@@ -5,13 +5,13 @@ import java.util.Date;
 
 import com.db.javaschool.finalproject.entity.NewsEntry;
 import com.db.javaschool.finalproject.entity.Product;
-import com.db.javaschool.finalproject.entity.Command;
-import com.db.javaschool.finalproject.entity.NewsEntry;
+import com.db.javaschool.finalproject.entity.History;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.db.javaschool.finalproject.dao.newsentry.NewsEntryDao;
 import com.db.javaschool.finalproject.dao.newsentry.ProductDao;
+import com.db.javaschool.finalproject.dao.newsentry.HistoryDao;
 import com.db.javaschool.finalproject.dao.user.UserDao;
 import com.db.javaschool.finalproject.entity.User;
 
@@ -21,6 +21,8 @@ public class DataBaseInitializer {
 	
 	private ProductDao productDao;
 
+	private HistoryDao historyDao;
+
 	private UserDao userDao;
 
 	private PasswordEncoder passwordEncoder;
@@ -29,12 +31,13 @@ public class DataBaseInitializer {
 		/* Default constructor for reflection instantiation */
 	}
 
-	public DataBaseInitializer(UserDao userDao, NewsEntryDao newsEntryDao, PasswordEncoder passwordEncoder,ProductDao productDao) {
+	public DataBaseInitializer(UserDao userDao, NewsEntryDao newsEntryDao, PasswordEncoder passwordEncoder,ProductDao productDao,HistoryDao historyDao) {
 		this.userDao = userDao;
 		this.passwordEncoder = passwordEncoder;
 
 		this.newsEntryDao = newsEntryDao;
 		this.productDao = productDao;
+		this.historyDao = historyDao;
 		
 	}
 
@@ -64,6 +67,9 @@ public class DataBaseInitializer {
 			
 			timestamp += 1000 * 60 * 60;
 		}
+		History history = new History();
+		this.historyDao.save(history);
+
 		Product product = new Product("Laptop i3","Asus",1200,5);
 		this.productDao.save(product);
 		product = new Product("Macbook Pro i5","Apple",4400,10);
